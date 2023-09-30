@@ -1,0 +1,13 @@
+table {
+    width: 100%;
+}
+button {
+    width: 100%;
+    font-size: 150%;
+}
+.clear {
+    color: red;
+}
+#result{
+    background:yellow;
+}
