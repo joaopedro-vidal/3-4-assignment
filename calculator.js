@@ -1,4 +1,7 @@
-console.log("hello world");
+let displayNumber = '0';
+let number1 = 0;
+let number2 = 0;
+let operator = ''
 
 function add(a, b){
     console.log("add function called");
@@ -34,4 +37,17 @@ function calc() {
 }
 function del() {
     setResult(0);
+}
+
+/*************************************** */
+function updateDisplay(newNumber) {
+    if (displayNumber === '0' && newNumber !== '.')
+        displayNumber = newNumber.toString();
+    else 
+    {
+        if (newNumber === '.' && displayNumber.includes('.'))
+            return
+        displayNumber = displayNumber + newNumber;
+    }
+    document.getElementById('numbers-display').value = displayNumber;
 }
