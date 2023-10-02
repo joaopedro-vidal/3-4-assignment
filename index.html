@@ -10,7 +10,8 @@
 </head>
 
 <body>
-    <table>
+    
+<!--     <table>
         <tr>
             <td colspan="4"><button id="result">0</button></td>
         </tr>
@@ -38,10 +39,44 @@
         </tr>
         <tr>
             <td colspan="2"><button onclick="del()" class="clear">Clear</button></td>
-            <!--<td><button onclick="add('.')">.</button></td>-->
             <td colspan="2"><button onclick="calc()">=</button></td>
         </tr>
-    </table>
+    </table> -->
+    <header>
+        <h1>Calculator Application</h1>
+    </header>
+    <main>
+        
+        <aside class="container">
+            <input class="display colunms-1-4" id="numbers-display" type="text">
+
+            <a class="button orange colunms-1-2" onClick="clearDisplay()">Clear</a>
+            <a class="button orange" onClick="undo()">Undo</a>
+            <a class="button orange" onClick="saveNumber('/')">/</a>
+
+            <a class="button" onClick="updateDisplay(1)">1</a>
+            <a class="button" onClick="updateDisplay(2)">2</a>
+            <a class="button" onClick="updateDisplay(3)">3</a>
+            <a class="button orange" onClick="saveNumber('*')">*</a>
+
+            <a class="button" onClick="updateDisplay(4)">4</a>
+            <a class="button" onClick="updateDisplay(5)">5</a>
+            <a class="button" onClick="updateDisplay(6)">6</a>
+            <a class="button orange" onClick="saveNumber('-')">-</a>
+
+            <a class="button" onClick="updateDisplay(7)">7</a>
+            <a class="button" onClick="updateDisplay(8)">8</a>
+            <a class="button" onClick="updateDisplay(9)">9</a>
+            <a class="button orange" onClick="saveNumber('+')">+</a>
+
+            <a class="button colunms-1-2" onClick="updateDisplay(0)">0</a>
+            <a class="button" onClick="updateDisplay('.')">.</a>
+            <a class="button orange" onClick="calculate()">=</a>   
+            
+        </aside>
+    </main>
+    <footer></footer>
+
 </body>
 
 </html>
