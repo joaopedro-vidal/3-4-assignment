@@ -10,45 +10,13 @@
 </head>
 
 <body>
-    
-<!--     <table>
-        <tr>
-            <td colspan="4"><button id="result">0</button></td>
-        </tr>
-        <tr>
-            <td><button onclick="add('1')">1</button></td>
-            <td><button onclick="add('2')">2</button></td>
-            <td><button onclick="add('3')">3</button></td>
-            <td><button onclick="add('+')">+</button></td>
-        </tr>
-        <tr>
-            <td><button onclick="add('4')">4</button></td>
-            <td><button onclick="add('5')">5</button></td>
-            <td><button onclick="add('6')">6</button></td>
-            <td><button onclick="add('-')">-</button></td>
-        </tr>
-        <tr>
-            <td><button onclick="add('7')">7</button></td>
-            <td><button onclick="add('8')">8</button></td>
-            <td><button onclick="add('9')">9</button></td>
-            <td><button onclick="add('*')">*</button></td>
-        </tr>
-        <tr>
-            <td colspan="3"><button onclick="add('0')">0</button></td>
-            <td colspan="3"><button onclick="add('/')">/</button></td>
-        </tr>
-        <tr>
-            <td colspan="2"><button onclick="del()" class="clear">Clear</button></td>
-            <td colspan="2"><button onclick="calc()">=</button></td>
-        </tr>
-    </table> -->
     <header>
         <h1>Calculator Application</h1>
     </header>
     <main>
-        
+
         <aside class="container">
-            <input class="display colunms-1-4" id="numbers-display" type="text">
+            <input class="display colunms-1-4" id="numbers-display" type="text" value="">
 
             <a class="button orange colunms-1-2" onClick="clearDisplay()">Clear</a>
             <a class="button orange" onClick="undo()">Undo</a>
@@ -71,8 +39,8 @@
 
             <a class="button colunms-1-2" onClick="updateDisplay(0)">0</a>
             <a class="button" onClick="updateDisplay('.')">.</a>
-            <a class="button orange" onClick="calculate()">=</a>   
-            
+            <a class="button orange" onClick="operate()">=</a>
+
         </aside>
     </main>
     <footer></footer>

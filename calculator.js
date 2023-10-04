@@ -3,7 +3,7 @@ let number1 = 0;
 let number2 = 0;
 let operator = ''
 
-function add(a, b){
+/*function add(a, b){
     console.log("add function called");
     return a + b;
 }
@@ -38,16 +38,29 @@ function calc() {
 function del() {
     setResult(0);
 }
-
+*/
 /*************************************** */
 function updateDisplay(newNumber) {
     if (displayNumber === '0' && newNumber !== '.')
         displayNumber = newNumber.toString();
-    else 
+    else
     {
         if (newNumber === '.' && displayNumber.includes('.'))
             return
         displayNumber = displayNumber + newNumber;
     }
     document.getElementById('numbers-display').value = displayNumber;
+}
+function clearDisplay(){
+    displayNumber="";
+    document.getElementById('numbers-display').value = displayNumber;
+}
+function undo(){
+
+}
+function saveNumber(operator){
+
+}
+function operate(){
+
 }
