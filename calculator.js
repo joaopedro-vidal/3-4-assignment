@@ -44,15 +44,13 @@ function saveNumber(oper) {
 
 function updateSecondDislpay(number, oper) {
     if (secondDisplay.length > 1) {
-        if(secondDisplay[secondDisplay.length - 1] === '=')
-        {
-            secondDisplay = number.toString()+oper; 
-            document.getElementById('second-numbers-display').innerHTML = secondDisplay;           
+        if (secondDisplay[secondDisplay.length - 1] === '=') {
+            secondDisplay = number.toString() + oper;
+            document.getElementById('second-numbers-display').innerHTML = secondDisplay;
             return;
         }
 
-        if (oper === '=') 
-        {
+        if (oper === '=') {
             secondDisplay = secondDisplay + number + oper;
             document.getElementById('second-numbers-display').innerHTML = secondDisplay;
             return;
@@ -106,3 +104,43 @@ function undo() {
     mainDisplay = mainDisplay.slice(0, mainDisplay.length - 1);
     document.getElementById('main-numbers-display').value = mainDisplay;
 }
+/****************************************** */
+window.addEventListener("keydown", e => {
+    console.log("key code : ", e.code)
+    switch (e.code) {
+        case "Numpad1": updateDisplay(1);
+            break;
+        case "Numpad2": updateDisplay(2);
+            break;
+        case "Numpad3": updateDisplay(3);
+            break;
+        case "Numpad4": updateDisplay(4);
+            break;
+        case "Numpad5": updateDisplay(5);
+            break;
+        case "Numpad6": updateDisplay(6);
+            break;
+        case "Numpad7": updateDisplay(7);
+            break;
+        case "Numpad8": updateDisplay(8);
+            break;
+        case "Numpad9": updateDisplay(9);
+            break;
+        case "Numpad0": updateDisplay(0);
+            break;
+
+        case "NumpadAdd": saveNumber('+');
+            break;
+        case "NumpadSubtract": saveNumber('-');
+            break;
+        case "NumpadMultiply": saveNumber('*');
+            break;
+        case "NumpadDivide": saveNumber('/');
+            break;
+        case "NumpadEnter": calculate();
+            break;
+
+        default: break;
+
+    }
+})
