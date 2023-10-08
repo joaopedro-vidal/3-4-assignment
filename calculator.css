@@ -16,13 +16,15 @@ body
 {
     padding: 0;
     margin: 0;
+    height: 100vh;
+    background-image: linear-gradient(to bottom, #d1cccc, #9f9b9c, #6f6d6e, #434243, #1b1b1c);
 }
 header, main{
 
     display: flex;
     justify-content: center;
     
-    background-color: azure;
+    
 }
 h1{
     font-family: Arial, Helvetica, sans-serif;
@@ -46,6 +48,7 @@ h1{
     font-weight: 600;
     text-align: right;
     padding: 0px 10px;
+    height: 30px;
 }
 
 .button{
@@ -60,7 +63,8 @@ h1{
 
 }
 .button:hover{
-    background-color: yellow;
+    background-color: white;
+    cursor: pointer;
 }
 
 .container{
