@@ -39,6 +39,15 @@ h1{
     text-align: right;
 }
 
+.second-display{
+    font-family: Arial, Helvetica, sans-serif;
+    color: aliceblue;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: right;
+    padding: 0px 10px;
+}
+
 .button{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 24px;
