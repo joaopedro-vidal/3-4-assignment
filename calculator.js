@@ -1,5 +1,5 @@
 let mainDisplay = '0';
-let secondDisplay = '0';
+let secondDisplay = '';
 let number1 = 0;
 let number2 = 0;
 let operation = ''
@@ -26,27 +26,45 @@ function updateDisplay(simble) {
     if (simble === '.' && mainDisplay.includes('.'))    
         return;
     if (mainDisplay === '0')
-        mainDisplay = simble.toString();
-    else 
-       mainDisplay = mainDisplay + simble;   
-    secondDisplay=mainDisplay;
-    document.getElementById('main-numbers-display').value = mainDisplay;
-    document.getElementById('second-numbers-display').innerHTML = secondDisplay;
+          mainDisplay = simble.toString();
+    else
+        mainDisplay = mainDisplay + simble;   
+     document.getElementById('main-numbers-display').value = mainDisplay;
+
 }
 
 
 function saveNumber(oper) {
-    if(isNaN(secondDisplay[secondDisplay.length-1]))
-      secondDisplay[secondDisplay.length-1]=oper;
-    else
-       secondDisplay=secondDisplay+oper;
-    document.getElementById('second-numbers-display').innerHTML = secondDisplay;
+    updateSecondDislpay(mainDisplay,oper)
+    
     number1 = Number(mainDisplay);
-    mainDisplay = '0'
+    mainDisplay = '0';
     operation = oper;
 }
 
+function updateSecondDislpay(number,oper)
+{
+    if(oper==='=')    
+    {
+        secondDisplay=secondDisplay+number+oper;
+        document.getElementById('second-numbers-display').innerHTML = secondDisplay;
+        return;
+    }
+    if(secondDisplay.length>1)
+    if(isNaN(secondDisplay[secondDisplay.length-1]) && secondDisplay[secondDisplay.length-1]!=='=')
+    {
+      secondDisplay=secondDisplay.slice(0, -1) + oper;
+      document.getElementById('second-numbers-display').innerHTML = secondDisplay;
+      return;
+    }
+    secondDisplay=secondDisplay+number+oper;
+    document.getElementById('second-numbers-display').innerHTML = secondDisplay;
+    console.log('operation : ',secondDisplay);
+    
+}
+
 function calculate() {
+    updateSecondDislpay(mainDisplay,'=');
     number2 = Number(mainDisplay);
     let result = operate(operation, number1, number2);
     console.log('result : ',result);
