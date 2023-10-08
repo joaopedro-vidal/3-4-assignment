@@ -1,48 +1,81 @@
-var displayNumber = '';
-var result = 0;
-var operator = 0;
+let mainDisplay = '0';
+let secondDisplay = '0';
+let number1 = 0;
+let number2 = 0;
+let operation = ''
 
 
-function updateDisplay(newNumber) {
-    displayNumber = document.getElementById('numbers-display').value;
-    if (displayNumber != '' || isNaN(newNumber)) {
-        document.getElementById('numbers-display').value = displayNumber + newNumber;
-    } else {
-        document.getElementById('numbers-display').value = newNumber;
+function sum(num1, num2) {
+    return num1 + num2;
+}
+
+function subtract(num1, num2) {
+    return num1 - num2;
+}
+
+function multiplication(num1, num2) {
+    return num1 * num2;
+}
+
+function division(num1, num2) {
+    return num1 / num2;
+}
+
+/************************************************************************************* */
+function updateDisplay(simble) {
+    if (simble === '.' && mainDisplay.includes('.'))    
+        return;
+    if (mainDisplay === '0')
+        mainDisplay = simble.toString();
+    else 
+       mainDisplay = mainDisplay + simble;   
+    secondDisplay=mainDisplay;
+    document.getElementById('main-numbers-display').value = mainDisplay;
+    document.getElementById('second-numbers-display').innerHTML = secondDisplay;
+}
+
+
+function saveNumber(oper) {
+    if(isNaN(secondDisplay[secondDisplay.length-1]))
+      secondDisplay[secondDisplay.length-1]=oper;
+    else
+       secondDisplay=secondDisplay+oper;
+    document.getElementById('second-numbers-display').innerHTML = secondDisplay;
+    number1 = Number(mainDisplay);
+    mainDisplay = '0'
+    operation = oper;
+}
+
+function calculate() {
+    number2 = Number(mainDisplay);
+    let result = operate(operation, number1, number2);
+    console.log('result : ',result);
+    mainDisplay = result.toString();
+    document.getElementById('main-numbers-display').value = mainDisplay;
+}
+
+function operate(operation, number1, number2) {
+    switch (operation) {
+        case '+':
+            return sum(number1, number2);
+        case '-':
+            return subtract(number1, number2);
+        case '*':
+            return multiplication(number1, number2);
+        case '/':
+            return division(number1, number2);
+        default:
+            return 0;
     }
 }
+
+/**************************************************************************************************** */
 function clearDisplay() {
-    displayNumber = "";
-    operator = 0;
-    result = 0;
-    document.getElementById('numbers-display').value = displayNumber;
+    mainDisplay = "0";
+    document.getElementById('main-numbers-display').value = mainDisplay;
 }
-function saveNumber(simble) {
-    displayNumber = document.getElementById('numbers-display').value;
-    if (operator == 0 && displayNumber != "") {
-        document.getElementById('numbers-display').value = displayNumber + simble;
-    } else if (operator == 0 && displayNumber == "" && simble == "-") {
-        document.getElementById('numbers-display').value = simble;
-    } else {
-        operate();
-        displayNumber = document.getElementById('numbers-display').value;
-        document.getElementById('numbers-display').value = displayNumber + simble;
-    }
-    operator++;
-}
-function operate() {
-    displayNumber = document.getElementById('numbers-display').value;
-    result = eval(displayNumber);
-    document.getElementById('numbers-display').value = result;
-    operator = 0;
-}
-
 
 function undo() {
-    displayNumber = document.getElementById('numbers-display').value;
-    let value=displayNumber.charAt(displayNumber.length - 1); // get the last char
-    if(value=="+" || value=="-" || value=="/" || value=="*"  ){
-        operator = 0;
-    }
-    document.getElementById('numbers-display').value = displayNumber.slice(0, -1); // Remove the last character
+    mainDisplay = mainDisplay.slice(0, mainDisplay.length - 1);
+    document.getElementById('main-numbers-display').value = mainDisplay;
 }

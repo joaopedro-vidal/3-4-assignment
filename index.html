@@ -16,7 +16,8 @@
     <main>
 
         <aside class="container">
-            <input class="display colunms-1-4" id="numbers-display" type="text" value="" readonly>
+            <p class="colunms-1-4 second-display"  id="second-numbers-display"></p>
+            <input class="display colunms-1-4" id="main-numbers-display" type="text" value="" readonly>
 
             <a class="button orange colunms-1-2" onClick="clearDisplay()">Clear</a>
             <a class="button orange" onClick="undo()">Undo</a>
@@ -39,7 +40,7 @@
 
             <a class="button colunms-1-2" onClick="updateDisplay(0)">0</a>
             <a class="button" onClick="updateDisplay('.')">.</a>
-            <a class="button orange" onClick="operate()">=</a>
+            <a class="button orange" onClick="calculate()">=</a>
 
         </aside>
     </main>
