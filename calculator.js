@@ -3,7 +3,7 @@ let secondDisplay = '';
 let stack = [];
 let operation = '';
 let numberEntred = false;
-let operationsSimbile = ['+', '-', '*', '/']
+let operationsSimbol = ['+', '-', '*', '/']
 
 
 function sum(num1, num2) {
@@ -24,90 +24,93 @@ function division(num1, num2) {
 
 /**********************************************  Display Finctions *********************************************************** */
 
-function updateDisplay(simble) 
-{
-    if (simble === '.' && mainDisplay.includes('.'))
+function updateDisplay(simbol) {
+    if (simbol === '.' && mainDisplay.includes('.'))
         return;
-    if (!numberEntred) 
-    {
-        mainDisplay = simble.toString();
+    if (!numberEntred) {
+        mainDisplay = simbol.toString();
         numberEntred = true;
     }
     else
-        mainDisplay = mainDisplay + simble;
+        mainDisplay = mainDisplay + simbol;
     document.getElementById('main-numbers-display').value = mainDisplay;
 }
 
-function pushNumberToSecondDislpay(number) 
-{
+function pushNumberToSecondDislpay(number) {
     secondDisplay = secondDisplay + number;
     document.getElementById('second-numbers-display').innerHTML = secondDisplay;
 }
 
-function pushOperationToSecondDislpay(operation) 
-{
-    if (secondDisplay.length > 1) 
-    {
-        if (secondDisplay[secondDisplay.length - 1] === '=') 
-        {
-            secondDisplay = mainDisplay.toString() + operation;
-            document.getElementById('second-numbers-display').innerHTML = secondDisplay;
-            return;
+function pushOperationToSecondDislpay(operation) {
+    if (secondDisplay.length > 0) {
+        if (isNaN(secondDisplay[secondDisplay.length - 1])) {
+            secondDisplay = secondDisplay.slice(0, -1) + operation;
         }
+        else
+            if (secondDisplay[secondDisplay.length - 1] === '=') {
+                secondDisplay = mainDisplay.toString() + operation;
+            }
+            else
+                secondDisplay = secondDisplay + operation;
     }
-    secondDisplay = secondDisplay + operation;
+    else
+        if (operation === "-") {
+            secondDisplay = operation;
+            mainDisplay = operation;
+            numberEntred = true;
+            document.getElementById('main-numbers-display').value = mainDisplay;
+        }
     document.getElementById('second-numbers-display').innerHTML = secondDisplay;
 }
 
-function clearDisplay() 
-{
+function clearDisplay() {
     stack = [];
-    mainDisplay = "0";
+    mainDisplay = "";
     document.getElementById('main-numbers-display').value = mainDisplay;
     secondDisplay = "";
     document.getElementById('second-numbers-display').innerHTML = secondDisplay;
 }
 
-function undo() 
-{
-    mainDisplay = mainDisplay.slice(0, mainDisplay.length - 1);
-    document.getElementById('main-numbers-display').value = mainDisplay;
+function undo() {
+    if (mainDisplay.length > 0) 
+    {
+        mainDisplay = mainDisplay.slice(0, mainDisplay.length - 1);
+        document.getElementById('main-numbers-display').value = mainDisplay;
+    }
 }
 
 /**********************************************  Calculation Functions *********************************************************** */
 
-function calculate(oper) 
-{
-    if (numberEntred) 
-    {
+function calculate(oper) {
+    if (numberEntred) {
         stack.push(Number(mainDisplay));
         pushNumberToSecondDislpay(mainDisplay);
         numberEntred = false;
     }
     pushOperationToSecondDislpay(oper);
     evaluate();
-    if (operationsSimbile.includes(oper))
+    if (operationsSimbol.includes(oper))
         operation = oper;
 }
 
-function evaluate() 
-{
-    if (stack.length > 1) 
-    {
+function evaluate() {
+    if (stack.length > 1) {
         let number2 = stack.pop();
         let number1 = stack.pop();
         let result = operate(operation, number1, number2);
-        stack.push(result);
-        console.log('result : ', result);
-        if (result % 1 > 0)
-            result = result.toFixed(2);
-        mainDisplay = result.toString();
-        document.getElementById('main-numbers-display').value = mainDisplay;
+        if (result != "error") {
+            stack.push(result);
+            console.log('result : ', result);
+            if (Math.abs(result) % 1 > 0)
+                result = result.toFixed(2);
+            mainDisplay = result.toString();
+            document.getElementById('main-numbers-display').value = mainDisplay;
+        }
+        else document.getElementById('main-numbers-display').value = "error";
     }
 }
 
-function operate(operation, number1, number2) 
-{
+function operate(operation, number1, number2) {
     switch (operation) {
         case '+':
             return sum(number1, number2);
@@ -116,7 +119,13 @@ function operate(operation, number1, number2)
         case '*':
             return multiplication(number1, number2);
         case '/':
-            return division(number1, number2);
+            {
+                if (number2 == 0) {
+                    clearDisplay();
+                    return "error";
+                }
+                return division(number1, number2);
+            }
         default:
             return 0;
     }
@@ -125,8 +134,25 @@ function operate(operation, number1, number2)
 /**********************************************  Keyboard Support *********************************************************** */
 
 window.addEventListener("keydown", e => {
-    console.log("key code : ", e.code)
-    switch (e.code) {
+    console.log("key code : ", e)
+    let key = e.key;
+    if (key === '.' || !isNaN(key))
+        updateDisplay(key);
+    else
+        if (isNaN(key)) {
+            if (operationsSimbol.includes(key))
+                calculate(key);
+            else if (key === "Enter")
+                calculate('=');
+            else if (key === "Delete")
+                clearDisplay();
+            else if (key === "Backspace")
+                undo();
+        }
+
+
+
+    /* switch (e.code) {
         case "Numpad1": updateDisplay(1);
             break;
         case "Numpad2": updateDisplay(2);
@@ -148,18 +174,18 @@ window.addEventListener("keydown", e => {
         case "Numpad0": updateDisplay(0);
             break;
 
-        case "NumpadAdd": saveNumber('+');
+        case "NumpadAdd": calculate('+');
             break;
-        case "NumpadSubtract": saveNumber('-');
+        case "NumpadSubtract": calculate('-');
             break;
-        case "NumpadMultiply": saveNumber('*');
+        case "NumpadMultiply": calculate('*');
             break;
-        case "NumpadDivide": saveNumber('/');
+        case "NumpadDivide": calculate('/');
             break;
-        case "NumpadEnter": calculate();
+        case "NumpadEnter": calculate('=');
             break;
 
         default: break;
 
-    }
+    } */
 })
